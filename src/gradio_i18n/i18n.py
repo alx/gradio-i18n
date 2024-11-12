@@ -261,7 +261,10 @@ def translate_blocks(
     )
 
     def on_load(request: gr.Request):
-        return get_lang_from_request(request)
+        if lang is None:
+            return get_lang_from_request(request)
+        else:
+            return lang.value
 
     def on_lang_change(request: gr.Request, lang: str):
         TranslateContext.lang_per_session[request.session_hash] = lang
